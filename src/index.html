@@ -1,0 +1,2436 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeoCover — Proteksi Cerdas, Tanpa Batas.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue: #0052CC;
+    --blue-dark: #003D99;
+    --blue-deeper: #00287A;
+    --mint: #00F5D4;
+    --mint-dim: rgba(0,245,212,0.12);
+    --pink: #F72585;
+    --charcoal: #1A202C;
+    --grey-bg: #F7FAFC;
+    --grey-mid: #E2E8F0;
+    --grey-text: #718096;
+    --white: #FFFFFF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--charcoal);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  /* ── NAVBAR ────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 5%;
+    background: rgba(0, 8, 30, 0.7);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(0, 245, 212, 0.08);
+    transition: background 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--white);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .logo-dot {
+    width: 8px; height: 8px;
+    background: var(--mint);
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom: 1px;
+  }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--mint); }
+
+  .nav-cta {
+    background: var(--mint);
+    color: var(--charcoal) !important;
+    padding: 9px 20px;
+    border-radius: 10px;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: transform 0.15s, box-shadow 0.15s !important;
+    box-shadow: 0 0 0 0 rgba(0,245,212,0);
+  }
+
+  .nav-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(0,245,212,0.35) !important;
+    color: var(--charcoal) !important;
+  }
+
+  /* ── HERO ──────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #00081E 0%, #001A5C 50%, #00287A 100%);
+    display: flex; flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 140px 5% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: pulse-glow 4s ease-in-out infinite alternate;
+  }
+
+  .glow-mint {
+    width: 600px; height: 600px;
+    background: rgba(0, 245, 212, 0.08);
+    top: -100px; right: -100px;
+  }
+
+  .glow-blue {
+    width: 500px; height: 500px;
+    background: rgba(0, 82, 204, 0.2);
+    bottom: -50px; left: -100px;
+  }
+
+  .glow-pink {
+    width: 300px; height: 300px;
+    background: rgba(247, 37, 133, 0.06);
+    top: 40%; left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @keyframes pulse-glow {
+    from { opacity: 0.6; transform: scale(1); }
+    to   { opacity: 1; transform: scale(1.08); }
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,245,212,0.1);
+    border: 1px solid rgba(0,245,212,0.25);
+    border-radius: 100px;
+    padding: 7px 16px;
+    margin-bottom: 28px;
+    animation: fade-up 0.6s ease both;
+  }
+
+  .hero-badge-dot {
+    width: 6px; height: 6px;
+    background: var(--mint);
+    border-radius: 50%;
+    animation: blink 1.4s ease infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero-badge span {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--mint);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .hero-title {
+    font-size: clamp(42px, 6vw, 76px);
+    color: var(--white);
+    max-width: 800px;
+    margin-bottom: 12px;
+    animation: fade-up 0.7s 0.1s ease both;
+    letter-spacing: -2px;
+  }
+
+  .hero-title .accent {
+    color: var(--mint);
+    position: relative;
+  }
+
+  .hero-tagline {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: clamp(24px, 3.5vw, 44px);
+    font-weight: 700;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 24px;
+    animation: fade-up 0.7s 0.18s ease both;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.55);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 44px;
+    animation: fade-up 0.7s 0.26s ease both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+    animation: fade-up 0.7s 0.34s ease both;
+    margin-bottom: 72px;
+  }
+
+  .btn-primary {
+    background: var(--mint);
+    color: var(--charcoal);
+    padding: 14px 30px;
+    border-radius: 10px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,245,212,0.4);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 14px 30px;
+    border-radius: 10px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+
+  .btn-outline:hover {
+    border-color: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.05);
+  }
+
+  .hero-trust {
+    animation: fade-up 0.7s 0.42s ease both;
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap; justify-content: center;
+  }
+
+  .trust-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; color: rgba(255,255,255,0.45);
+  }
+
+  .trust-item svg { flex-shrink: 0; }
+
+  /* hero car illustration */
+  .hero-visual {
+    position: absolute;
+    bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 900px;
+    opacity: 0.07;
+    pointer-events: none;
+    animation: fade-up 1s 0.5s ease both;
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── STATS ─────────────────────────────────── */
+  #stats {
+    background: var(--charcoal);
+    padding: 48px 5%;
+  }
+
+  .stats-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2px;
+  }
+
+  .stat-card {
+    padding: 32px 24px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+  }
+
+  .stat-card:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--mint);
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    font-weight: 500;
+  }
+
+  /* ── SECTION COMMON ────────────────────────── */
+  section { padding: 100px 5%; }
+
+  .section-tag {
+    display: inline-block;
+    background: rgba(0,82,204,0.08);
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(0,82,204,0.15);
+  }
+
+  .section-title {
+    font-size: clamp(32px, 4vw, 48px);
+    color: var(--charcoal);
+    letter-spacing: -1.5px;
+    margin-bottom: 14px;
+  }
+
+  .section-sub {
+    font-size: 17px;
+    color: var(--grey-text);
+    line-height: 1.7;
+    max-width: 540px;
+  }
+
+  .text-center { text-align: center; }
+  .text-center .section-sub { margin: 0 auto; }
+
+  /* ── PILLARS ───────────────────────────────── */
+  #pillars {
+    background: var(--grey-bg);
+  }
+
+  .pillars-grid {
+    max-width: 1100px;
+    margin: 56px auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .pillar-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 40px 36px;
+    border: 1px solid var(--grey-mid);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pillar-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .pillar-card.instant::before { background: var(--mint); }
+  .pillar-card.transparent::before { background: var(--blue); }
+  .pillar-card.reliable::before { background: var(--pink); }
+
+  .pillar-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  }
+
+  .pillar-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px;
+    font-size: 24px;
+  }
+
+  .pillar-card.instant .pillar-icon { background: rgba(0,245,212,0.12); }
+  .pillar-card.transparent .pillar-icon { background: rgba(0,82,204,0.1); }
+  .pillar-card.reliable .pillar-icon { background: rgba(247,37,133,0.08); }
+
+  .pillar-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+
+  .pillar-desc {
+    font-size: 15px;
+    color: var(--grey-text);
+    line-height: 1.7;
+  }
+
+  /* ── PRODUCTS ──────────────────────────────── */
+  #products {
+    background: var(--white);
+  }
+
+  .products-grid {
+    max-width: 1100px;
+    margin: 60px auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+    gap: 28px;
+  }
+
+  .product-card {
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    min-height: 380px;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .product-card:hover { transform: scale(1.01); }
+
+  .product-card.car {
+    background: linear-gradient(145deg, #001855, #0052CC);
+  }
+
+  .product-card.moto {
+    background: linear-gradient(145deg, #001A1A, #007A6A);
+  }
+
+  .product-card-gfx {
+    position: absolute;
+    inset: 0;
+    opacity: 0.07;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 220px;
+    font-weight: 900;
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    user-select: none;
+    line-height: 1;
+    overflow: hidden;
+  }
+
+  .product-badge {
+    position: absolute;
+    top: 28px; right: 28px;
+    background: var(--pink);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 100px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .product-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .product-name {
+    font-size: 34px;
+    color: white;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+  }
+
+  .product-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  .product-features {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .product-feature {
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.85);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; gap: 5px;
+  }
+
+  .btn-product {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--mint);
+    color: var(--charcoal);
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    width: fit-content;
+  }
+
+  .btn-product:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0,245,212,0.4);
+  }
+
+  /* ── HOW IT WORKS ──────────────────────────── */
+  #how {
+    background: var(--grey-bg);
+  }
+
+  .steps-container {
+    max-width: 900px;
+    margin: 64px auto 0;
+    position: relative;
+  }
+
+  .steps-line {
+    position: absolute;
+    left: 35px;
+    top: 60px;
+    bottom: 60px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--mint), var(--blue), var(--mint));
+    opacity: 0.3;
+  }
+
+  .step {
+    display: flex; gap: 32px;
+    padding: 32px 0;
+    align-items: flex-start;
+    position: relative;
+  }
+
+  .step-num {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--grey-mid);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--blue);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .step:hover .step-num {
+    border-color: var(--mint);
+    background: var(--charcoal);
+    color: var(--mint);
+  }
+
+  .step-body { padding-top: 16px; }
+
+  .step-title {
+    font-size: 22px;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .step-desc {
+    font-size: 15px;
+    color: var(--grey-text);
+    line-height: 1.7;
+    max-width: 500px;
+  }
+
+  /* ── COVERAGE TABLE ────────────────────────── */
+  #coverage {
+    background: var(--white);
+  }
+
+  .coverage-wrap {
+    max-width: 900px;
+    margin: 60px auto 0;
+    border: 1px solid var(--grey-mid);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .coverage-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    background: var(--charcoal);
+    padding: 16px 28px;
+  }
+
+  .coverage-header span {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .coverage-header span:not(:first-child) { text-align: center; }
+
+  .coverage-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    padding: 18px 28px;
+    border-bottom: 1px solid var(--grey-mid);
+    align-items: center;
+    transition: background 0.15s;
+  }
+
+  .coverage-row:last-child { border-bottom: none; }
+  .coverage-row:hover { background: var(--grey-bg); }
+
+  .coverage-row span:first-child {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--charcoal);
+  }
+
+  .coverage-row .check, .coverage-row .cross {
+    text-align: center; font-size: 18px;
+  }
+
+  .check { color: #00C896; }
+  .cross { color: #CBD5E0; }
+
+  /* ── CTA BANNER ────────────────────────────── */
+  #cta {
+    background: linear-gradient(135deg, #001255, #0052CC 60%, #003D99);
+    padding: 100px 5%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    width: 500px; height: 500px;
+    background: rgba(0,245,212,0.08);
+    border-radius: 50%;
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    filter: blur(60px);
+    pointer-events: none;
+  }
+
+  .cta-title {
+    font-size: clamp(34px, 5vw, 60px);
+    color: white;
+    max-width: 700px;
+    margin: 0 auto 16px;
+    letter-spacing: -2px;
+  }
+
+  .cta-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 40px;
+  }
+
+  .cta-actions {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  }
+
+  /* ── FOOTER ────────────────────────────────── */
+  footer {
+    background: #0A0F1C;
+    padding: 60px 5% 30px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+    gap: 48px;
+    max-width: 1100px;
+    margin: 0 auto 48px;
+  }
+
+  .footer-brand p {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-top: 12px;
+    max-width: 260px;
+  }
+
+  .footer-col h4 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 16px;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+
+  .footer-col ul li a {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .footer-col ul li a:hover { color: var(--mint); }
+
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 13px;
+  }
+
+  .footer-legal { display: flex; gap: 24px; }
+  .footer-legal a { color: rgba(255,255,255,0.3); text-decoration: none; }
+  .footer-legal a:hover { color: var(--mint); }
+
+  /* ── RESPONSIVE ────────────────────────────── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 5%; }
+    .nav-links { display: none; }
+
+    .products-grid { grid-template-columns: 1fr; }
+
+    .steps-line { display: none; }
+
+    .coverage-header, .coverage-row {
+      grid-template-columns: 3fr 1fr 1fr;
+      gap: 4px;
+    }
+
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .footer-top { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; align-items: center; }
+    .hero-trust { flex-direction: column; gap: 12px; }
+  }
+
+  /* ── CALCULATOR MODAL ──────────────────────── */
+  #calc-overlay {
+    position: fixed; inset: 0; z-index: 999;
+    background: rgba(5, 10, 30, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  #calc-overlay.open {
+    opacity: 1; pointer-events: all;
+  }
+
+  #calc-modal {
+    background: #0D1526;
+    border: 1px solid rgba(0,245,212,0.12);
+    border-radius: 24px;
+    width: 100%; max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(20px) scale(0.97);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    scrollbar-width: none;
+  }
+
+  #calc-modal::-webkit-scrollbar { display: none; }
+
+  #calc-overlay.open #calc-modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .calc-header {
+    padding: 28px 32px 0;
+    display: flex; align-items: flex-start; justify-content: space-between;
+  }
+
+  .calc-close {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    transition: background 0.15s, color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .calc-close:hover { background: rgba(255,255,255,0.12); color: white; }
+
+  /* Progress steps */
+  .calc-steps {
+    display: flex; align-items: center; gap: 0;
+    margin-bottom: 6px;
+  }
+
+  .calc-step-item {
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .calc-step-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.3);
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+
+  .calc-step-dot.active {
+    border-color: var(--mint);
+    background: var(--mint);
+    color: var(--charcoal);
+  }
+
+  .calc-step-dot.done {
+    border-color: rgba(0,245,212,0.4);
+    background: rgba(0,245,212,0.1);
+    color: var(--mint);
+  }
+
+  .calc-step-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.3);
+    transition: color 0.3s;
+    white-space: nowrap;
+  }
+
+  .calc-step-item.active .calc-step-label { color: var(--mint); }
+  .calc-step-item.done .calc-step-label { color: rgba(0,245,212,0.5); }
+
+  .calc-step-line {
+    height: 1px;
+    width: 32px;
+    background: rgba(255,255,255,0.1);
+    margin: 0 6px;
+    flex-shrink: 0;
+  }
+
+  .calc-step-line.done { background: rgba(0,245,212,0.3); }
+
+  /* Step panels */
+  .calc-body { padding: 24px 32px 32px; }
+
+  .calc-panel { display: none; }
+  .calc-panel.active { display: block; }
+
+  .calc-panel-title {
+    font-size: 22px;
+    color: white;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+
+  .calc-panel-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  /* Step 1 — Vehicle type cards */
+  .vehicle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .vehicle-card {
+    background: rgba(255,255,255,0.04);
+    border: 2px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 24px 16px;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    user-select: none;
+  }
+
+  .vehicle-card:hover {
+    border-color: rgba(0,245,212,0.3);
+    background: rgba(0,245,212,0.04);
+    transform: translateY(-2px);
+  }
+
+  .vehicle-card.selected {
+    border-color: var(--mint);
+    background: rgba(0,245,212,0.08);
+  }
+
+  .vehicle-card-icon { font-size: 40px; margin-bottom: 10px; line-height: 1; }
+
+  .vehicle-card-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+  }
+
+  .vehicle-card-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .vehicle-card.selected .vehicle-card-name { color: var(--mint); }
+
+  /* Coverage type pills */
+  .coverage-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
+  }
+
+  .coverage-pills {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .coverage-pill {
+    background: rgba(255,255,255,0.04);
+    border: 2px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    user-select: none;
+  }
+
+  .coverage-pill:hover {
+    border-color: rgba(0,82,204,0.5);
+    background: rgba(0,82,204,0.06);
+  }
+
+  .coverage-pill.selected {
+    border-color: var(--blue);
+    background: rgba(0,82,204,0.12);
+  }
+
+  .coverage-pill-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 3px;
+  }
+
+  .coverage-pill.selected .coverage-pill-name { color: #6FA8FF; }
+
+  .coverage-pill-desc {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.4;
+  }
+
+  /* Step 2 — Form fields */
+  .calc-form-group {
+    margin-bottom: 18px;
+  }
+
+  .calc-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 8px;
+  }
+
+  .calc-input, .calc-select {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .calc-input::placeholder { color: rgba(255,255,255,0.25); }
+
+  .calc-input:focus, .calc-select:focus {
+    border-color: var(--mint);
+    background: rgba(0,245,212,0.04);
+  }
+
+  .calc-select option { background: #0D1526; color: white; }
+
+  .calc-select-wrap { position: relative; }
+
+  .calc-select-wrap::after {
+    content: '▾';
+    position: absolute;
+    right: 14px; top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255,255,255,0.3);
+    pointer-events: none;
+    font-size: 14px;
+  }
+
+  .calc-input-prefix-wrap {
+    position: relative;
+    display: flex; align-items: center;
+  }
+
+  .calc-input-prefix {
+    position: absolute; left: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.4);
+    pointer-events: none;
+  }
+
+  .calc-input-prefix-wrap .calc-input { padding-left: 54px; }
+
+  .calc-hint {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    margin-top: 6px;
+  }
+
+  /* Step 3 — Results */
+  .calc-result-summary {
+    background: linear-gradient(135deg, rgba(0,82,204,0.2), rgba(0,245,212,0.08));
+    border: 1px solid rgba(0,245,212,0.2);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .calc-result-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .calc-result-range {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--mint);
+    letter-spacing: -1px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .calc-result-period {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .calc-result-rows {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .calc-result-row {
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .calc-result-row-label {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .calc-result-row-val {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+  }
+
+  .calc-disclaimer {
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  /* Navigation buttons */
+  .calc-nav {
+    display: flex; gap: 10px;
+  }
+
+  .calc-btn-back {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.6);
+    border-radius: 10px;
+    padding: 13px 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .calc-btn-back:hover { background: rgba(255,255,255,0.1); color: white; }
+
+  .calc-btn-next {
+    flex: 1;
+    background: var(--mint);
+    color: var(--charcoal);
+    border: none;
+    border-radius: 10px;
+    padding: 13px 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+
+  .calc-btn-next:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(0,245,212,0.35);
+  }
+
+  .calc-btn-next:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .calc-btn-wa {
+    flex: 1;
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 13px 20px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+
+  .calc-btn-wa:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(37,211,102,0.35);
+  }
+
+  .calc-error {
+    font-size: 12px;
+    color: #FC8181;
+    margin-top: -10px;
+    margin-bottom: 14px;
+    display: none;
+  }
+
+  .calc-loading {
+    text-align: center;
+    padding: 40px 0;
+    color: rgba(255,255,255,0.4);
+    font-size: 14px;
+  }
+
+  .calc-spinner {
+    width: 36px; height: 36px;
+    border: 3px solid rgba(0,245,212,0.15);
+    border-top-color: var(--mint);
+    border-radius: 50%;
+    margin: 0 auto 14px;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── LEAD FORM STYLES ─────────────────────── */
+  .lead-form-header {
+    display: flex; gap: 16px; align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .lead-icon-wrap {
+    width: 52px; height: 52px;
+    background: rgba(0,245,212,0.08);
+    border: 1px solid rgba(0,245,212,0.2);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .lead-premi-mini {
+    background: rgba(0,82,204,0.15);
+    border: 1px solid rgba(0,82,204,0.25);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .lead-premi-mini span:first-child {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .lead-premi-badge {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--mint);
+    white-space: nowrap;
+  }
+
+  .lead-privacy {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .lead-privacy svg { flex-shrink: 0; color: rgba(0,245,212,0.4); }
+
+  .lead-success-icon {
+    width: 64px; height: 64px;
+    background: rgba(0,245,212,0.1);
+    border: 2px solid var(--mint);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    color: var(--mint);
+    margin: 0 auto 20px;
+    font-weight: 700;
+  }
+
+  /* ── SCROLL REVEAL ─────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="logo-dot"></span>
+    Neo<span style="color: var(--mint);">Cover</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#products">Produk</a></li>
+    <li><a href="#how">Cara Kerja</a></li>
+    <li><a href="#coverage">Coverage</a></li>
+    <li><a href="#" class="nav-cta" onclick="openCalc(); return false;">Cek Premi →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow glow-mint"></div>
+  <div class="hero-glow glow-blue"></div>
+  <div class="hero-glow glow-pink"></div>
+
+  <div class="hero-badge">
+    <span class="hero-badge-dot"></span>
+    <span>Asuransi Kendaraan Digital #1 di Indonesia</span>
+  </div>
+
+  <h1 class="hero-title">
+    Lindungi <span class="accent">Kendaraanmu</span><br>Sekarang Juga
+  </h1>
+
+  <p class="hero-tagline">"Proteksi Cerdas, Tanpa Batas."</p>
+
+  <p class="hero-sub">
+    Asuransi mobil dan motor berbasis teknologi. Proses instan, klaim mudah, tanpa biaya tersembunyi. Semua dari genggaman tanganmu.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#" class="btn-primary" onclick="openCalc(); return false;">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Cek Premi Sekarang
+    </a>
+    <a href="#how" class="btn-outline">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z" fill="currentColor" stroke="none"/></svg>
+      Cara Kerja
+    </a>
+  </div>
+
+  <div class="hero-trust">
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="#00F5D4" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      Terdaftar & diawasi OJK
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="#00F5D4" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      Proses klaim 1×24 jam
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="#00F5D4" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      2.500+ bengkel rekanan
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="#00F5D4" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      Tanpa biaya tersembunyi
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div id="stats">
+  <div class="stats-grid">
+    <div class="stat-card reveal">
+      <div class="stat-number">50K+</div>
+      <div class="stat-label">Kendaraan Terlindungi</div>
+    </div>
+    <div class="stat-card reveal reveal-delay-1">
+      <div class="stat-number">98%</div>
+      <div class="stat-label">Kepuasan Nasabah</div>
+    </div>
+    <div class="stat-card reveal reveal-delay-2">
+      <div class="stat-number">2.5K+</div>
+      <div class="stat-label">Bengkel Rekanan</div>
+    </div>
+    <div class="stat-card reveal reveal-delay-3">
+      <div class="stat-number">5 Mnt</div>
+      <div class="stat-label">Rata-rata Pendaftaran</div>
+    </div>
+  </div>
+</div>
+
+<!-- PILLARS -->
+<section id="pillars">
+  <div class="text-center">
+    <span class="section-tag reveal">Kenapa NeoCover?</span>
+    <h2 class="section-title reveal">Tiga Pilar Perlindunganmu</h2>
+    <p class="section-sub reveal">Kami membangun layanan yang benar-benar bekerja untukmu — bukan yang membuatmu bingung.</p>
+  </div>
+  <div class="pillars-grid">
+    <div class="pillar-card instant reveal">
+      <div class="pillar-icon">
+        <svg width="26" height="26" fill="none" stroke="#00F5D4" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <div class="pillar-title">⚡ Instant</div>
+      <p class="pillar-desc">Daftar dan aktifkan polis dalam hitungan menit. Tidak perlu antri, tidak perlu survey fisik. Semua bisa dilakukan dari smartphone-mu kapan saja.</p>
+    </div>
+    <div class="pillar-card transparent reveal reveal-delay-1">
+      <div class="pillar-icon">
+        <svg width="26" height="26" fill="none" stroke="#0052CC" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="pillar-title">🔍 Transparent</div>
+      <p class="pillar-desc">Tidak ada biaya tersembunyi, tidak ada klausul membingungkan. Setiap detail polis ditampilkan jelas dan bisa kamu baca kapanpun di dashboard.</p>
+    </div>
+    <div class="pillar-card reliable reveal reveal-delay-2">
+      <div class="pillar-icon">
+        <svg width="26" height="26" fill="none" stroke="#F72585" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <div class="pillar-title">🛡️ Reliable</div>
+      <p class="pillar-desc">Jaringan 2.500+ bengkel terverifikasi di seluruh Indonesia. Tim CS siap membantu 24/7. Klaim diproses cepat tanpa drama yang tidak perlu.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="text-center">
+    <span class="section-tag reveal">Paket Kami</span>
+    <h2 class="section-title reveal">Pilih Perlindunganmu</h2>
+    <p class="section-sub reveal">Dua produk unggulan kami dirancang khusus untuk kebutuhan mobilitas anak muda Jakarta dan sekitarnya.</p>
+  </div>
+  <div class="products-grid">
+    <!-- Mobil -->
+    <div class="product-card car reveal">
+      <div class="product-card-gfx">🚗</div>
+      <div class="product-badge">Terpopuler</div>
+      <div>
+        <div class="product-tag">Asuransi Mobil</div>
+        <h3 class="product-name">NeoShield<br>Auto</h3>
+        <p class="product-desc">Perlindungan komprehensif untuk mobilmu. Dari benturan ringan, banjir, hingga kehilangan — semua terlindungi.</p>
+        <div class="product-features">
+          <span class="product-feature">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 7l-8 8-4-4"/></svg>
+            All Risk
+          </span>
+          <span class="product-feature">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 7l-8 8-4-4"/></svg>
+            Tanggung Jawab Pihak III
+          </span>
+          <span class="product-feature">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 7l-8 8-4-4"/></svg>
+            Banjir & Bencana Alam
+          </span>
+          <span class="product-feature">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 7l-8 8-4-4"/></svg>
+            Perlindungan Kecelakaan Diri
+          </span>
+        </div>
+        <a href="#" class="btn-product" onclick="openCalc('mobil'); return false;">
+          Mulai dari Rp 89rb/bln
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+    <!-- Motor -->
+    <div class="product-card moto reveal reveal-delay-1">
+      <div class="product-card-gfx">🏍️</div>
+      <div>
+        <div class="product-tag">Asuransi Motor</div>
+        <h3 class="product-name">NeoShield<br>Moto</h3>
+        <p class="product-desc">Motor adalah senjata utamamu di jalanan Jakarta. Pastikan kamu berkendara tenang dengan proteksi digital terbaik.</p>
+        <div class="product-features">
+          <span class="product-feature">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 7l-8 8-4-4"/></svg>
+            TLO & Comprehensive
+          </span>
+          <span class="product-feature">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 7l-8 8-4-4"/></svg>
+            Perlindungan Pencurian
+          </span>
+          <span class="product-feature">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 7l-8 8-4-4"/></svg>
+            Tanggung Jawab Pihak III
+          </span>
+          <span class="product-feature">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 7l-8 8-4-4"/></svg>
+            Kecelakaan Penumpang
+          </span>
+        </div>
+        <a href="#" class="btn-product" onclick="openCalc('motor'); return false;">
+          Mulai dari Rp 29rb/bln
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="text-center">
+    <span class="section-tag reveal">Proses</span>
+    <h2 class="section-title reveal">Semudah 3 Langkah</h2>
+    <p class="section-sub reveal">Dari daftar sampai polis aktif, kamu bisa menyelesaikan semuanya dalam kurang dari 10 menit.</p>
+  </div>
+  <div class="steps-container">
+    <div class="steps-line"></div>
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <h3 class="step-title">Isi Data Kendaraan</h3>
+        <p class="step-desc">Masukkan informasi kendaraanmu — plat nomor, tahun, dan tipe kendaraan. Sistem kami akan otomatis menghitung estimasi premi terbaik untukmu secara real-time.</p>
+      </div>
+    </div>
+    <div class="step reveal reveal-delay-1">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <h3 class="step-title">Pilih Paket & Bayar</h3>
+        <p class="step-desc">Bandingkan paket yang tersedia, pilih yang paling sesuai kebutuhan dan budgetmu. Bayar dengan berbagai metode — transfer bank, QRIS, kartu kredit, atau dicicil.</p>
+      </div>
+    </div>
+    <div class="step reveal reveal-delay-2">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <h3 class="step-title">Polis Aktif Instan</h3>
+        <p class="step-desc">Polis digitalmu langsung aktif dan dikirim ke email. Simpan di app NeoCover, tunjukkan saat dibutuhkan. Tidak perlu kertas, tidak perlu antre ke kantor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COVERAGE TABLE -->
+<section id="coverage">
+  <div class="text-center">
+    <span class="section-tag reveal">Perbandingan</span>
+    <h2 class="section-title reveal">Apa Saja yang Dicakup?</h2>
+    <p class="section-sub reveal">Lihat perbandingan paket TLO (Total Loss Only) vs Comprehensive untuk kendaraanmu.</p>
+  </div>
+  <div class="coverage-wrap reveal">
+    <div class="coverage-header">
+      <span>Jenis Perlindungan</span>
+      <span>TLO</span>
+      <span>Komprehensif</span>
+    </div>
+    <div class="coverage-row">
+      <span>Kehilangan akibat pencurian</span>
+      <span class="check">✓</span>
+      <span class="check">✓</span>
+    </div>
+    <div class="coverage-row">
+      <span>Kerusakan total (constructive total loss)</span>
+      <span class="check">✓</span>
+      <span class="check">✓</span>
+    </div>
+    <div class="coverage-row">
+      <span>Kerusakan sebagian (benturan, lecet)</span>
+      <span class="cross">—</span>
+      <span class="check">✓</span>
+    </div>
+    <div class="coverage-row">
+      <span>Bencana alam (banjir, gempa, angin)</span>
+      <span class="cross">—</span>
+      <span class="check">✓</span>
+    </div>
+    <div class="coverage-row">
+      <span>Tanggung jawab pihak ketiga (TJH)</span>
+      <span class="cross">—</span>
+      <span class="check">✓</span>
+    </div>
+    <div class="coverage-row">
+      <span>Kecelakaan diri pengemudi & penumpang</span>
+      <span class="cross">—</span>
+      <span class="check">✓</span>
+    </div>
+    <div class="coverage-row">
+      <span>Biaya derek & evakuasi darurat</span>
+      <span class="cross">—</span>
+      <span class="check">✓</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-glow"></div>
+  <h2 class="cta-title reveal">Sudah Siap Berkendara<br>Dengan Tenang?</h2>
+  <p class="cta-sub reveal">Bergabung dengan 50.000+ pengguna yang sudah mempercayakan kendaraannya ke NeoCover.</p>
+  <div class="cta-actions reveal">
+    <a href="#" class="btn-primary" style="padding: 16px 36px; font-size: 16px;" onclick="openCalc(); return false;">
+      Hitung Premi Gratis
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="#" class="btn-outline" style="padding: 16px 28px; font-size: 15px;">
+      Hubungi Kami
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="text-decoration: none;">
+        <span class="logo-dot"></span>
+        Neo<span style="color: var(--mint);">Cover</span>
+      </a>
+      <p>Asuransi kendaraan digital yang transparan, instan, dan bisa kamu akses kapanpun dari genggaman tanganmu.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Produk</h4>
+      <ul>
+        <li><a href="#">NeoShield Auto</a></li>
+        <li><a href="#">NeoShield Moto</a></li>
+        <li><a href="#">Paket Bundling</a></li>
+        <li><a href="#">Promo & Diskon</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Layanan</h4>
+      <ul>
+        <li><a href="#">Ajukan Klaim</a></li>
+        <li><a href="#">Cek Status Klaim</a></li>
+        <li><a href="#">Perpanjang Polis</a></li>
+        <li><a href="#">Bengkel Rekanan</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Perusahaan</h4>
+      <ul>
+        <li><a href="#">Tentang Kami</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Karir</a></li>
+        <li><a href="#">Kontak</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 NeoCover. Semua hak dilindungi. Terdaftar & diawasi OJK.</span>
+    <div class="footer-legal">
+      <a href="#">Kebijakan Privasi</a>
+      <a href="#">Syarat & Ketentuan</a>
+      <a href="#">Cookie</a>
+    </div>
+  </div>
+</footer>
+
+<!-- CALCULATOR MODAL -->
+<div id="calc-overlay" role="dialog" aria-modal="true" aria-label="Kalkulator Premi">
+  <div id="calc-modal">
+
+    <div class="calc-header">
+      <div>
+        <div class="calc-steps" id="calc-steps-indicator"></div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.25);margin-top:4px;" id="calc-step-hint"></div>
+      </div>
+      <button class="calc-close" onclick="closeCalc()" aria-label="Tutup">✕</button>
+    </div>
+
+    <div class="calc-body">
+
+      <!-- ── STEP 1: PILIH KENDARAAN ── -->
+      <div class="calc-panel active" id="panel-1">
+        <h3 class="calc-panel-title">Kendaraan apa yang ingin dilindungi?</h3>
+        <p class="calc-panel-sub">Pilih jenis kendaraan dan tipe perlindungan yang sesuai kebutuhanmu.</p>
+
+        <div class="vehicle-grid">
+          <div class="vehicle-card" id="vc-mobil" onclick="selectVehicle('mobil')">
+            <div class="vehicle-card-icon">🚗</div>
+            <div class="vehicle-card-name">Mobil</div>
+            <div class="vehicle-card-sub">Sedan, MPV, SUV, City Car</div>
+          </div>
+          <div class="vehicle-card" id="vc-motor" onclick="selectVehicle('motor')">
+            <div class="vehicle-card-icon">🏍️</div>
+            <div class="vehicle-card-name">Motor</div>
+            <div class="vehicle-card-sub">Bebek, Matik, Sport</div>
+          </div>
+        </div>
+
+        <div class="coverage-label">Tipe Perlindungan</div>
+        <div class="coverage-pills">
+          <div class="coverage-pill" id="cp-comprehensive" onclick="selectCoverage('comprehensive')">
+            <div class="coverage-pill-name">Komprehensif</div>
+            <div class="coverage-pill-desc">Semua risiko — kerusakan kecil hingga kehilangan total</div>
+          </div>
+          <div class="coverage-pill" id="cp-tlo" onclick="selectCoverage('tlo')">
+            <div class="coverage-pill-name">TLO</div>
+            <div class="coverage-pill-desc">Hanya kehilangan & kerusakan total (>75%)</div>
+          </div>
+        </div>
+
+        <div class="calc-nav">
+          <button class="calc-btn-next" id="btn-step1-next" onclick="goStep(2)" disabled>
+            Lanjut — Isi Detail
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── STEP 2: DETAIL KENDARAAN ── -->
+      <div class="calc-panel" id="panel-2">
+        <h3 class="calc-panel-title">Detail kendaraanmu</h3>
+        <p class="calc-panel-sub">Isi data kendaraan untuk mendapatkan estimasi premi yang akurat.</p>
+
+        <div class="calc-form-group">
+          <label class="calc-label" for="input-merk">Merk & Model Kendaraan</label>
+          <input class="calc-input" id="input-merk" type="text" placeholder="cth: Toyota Avanza, Honda Vario 150" autocomplete="off">
+        </div>
+
+        <div class="calc-form-group">
+          <label class="calc-label" for="input-tahun">Tahun Kendaraan</label>
+          <div class="calc-select-wrap">
+            <select class="calc-select" id="input-tahun">
+              <option value="">-- Pilih Tahun --</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-form-group">
+          <label class="calc-label" for="input-harga">Estimasi Harga Kendaraan</label>
+          <div class="calc-input-prefix-wrap">
+            <span class="calc-input-prefix">Rp</span>
+            <input class="calc-input" id="input-harga" type="text" placeholder="150.000.000" inputmode="numeric">
+          </div>
+          <div class="calc-hint">Masukkan harga saat ini di pasaran, bukan harga beli dulu.</div>
+        </div>
+
+        <div class="calc-error" id="form-error">⚠ Mohon lengkapi semua data di atas.</div>
+
+        <div class="calc-nav">
+          <button class="calc-btn-back" onclick="goStep(1)">← Kembali</button>
+          <button class="calc-btn-next" onclick="hitungPremi()">
+            Hitung Premi Saya
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── STEP 3: HASIL ── -->
+      <div class="calc-panel" id="panel-3">
+        <div id="calc-loading" class="calc-loading">
+          <div class="calc-spinner"></div>
+          Menghitung estimasi premi terbaik...
+        </div>
+        <div id="calc-result-content" style="display:none;">
+          <h3 class="calc-panel-title">Estimasi Premi Kamu 🎉</h3>
+          <p class="calc-panel-sub" id="result-subtitle"></p>
+
+          <div class="calc-result-summary">
+            <div class="calc-result-label">Premi per bulan mulai dari</div>
+            <div class="calc-result-range" id="result-monthly"></div>
+            <div class="calc-result-period">per bulan · dibayar tahunan</div>
+          </div>
+
+          <div class="calc-result-rows">
+            <div class="calc-result-row">
+              <span class="calc-result-row-label">🚗 Kendaraan</span>
+              <span class="calc-result-row-val" id="result-kendaraan"></span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-row-label">🛡️ Tipe Paket</span>
+              <span class="calc-result-row-val" id="result-tipe"></span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-row-label">💰 Nilai Kendaraan</span>
+              <span class="calc-result-row-val" id="result-nilai"></span>
+            </div>
+            <div class="calc-result-row">
+              <span class="calc-result-row-label">📅 Premi per Tahun</span>
+              <span class="calc-result-row-val" id="result-yearly"></span>
+            </div>
+          </div>
+
+          <p class="calc-disclaimer">* Estimasi ini bersifat indikatif berdasarkan tarif acuan OJK. Premi final ditentukan setelah verifikasi data kendaraan.</p>
+
+          <div class="calc-nav">
+            <button class="calc-btn-back" onclick="goStep(1)">Hitung Ulang</button>
+            <button class="calc-btn-next" onclick="goStep(4)">
+              Lanjut — Dapatkan Penawaran
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STEP 4: LEAD CAPTURE ── -->
+      <div class="calc-panel" id="panel-4">
+
+        <!-- State A: Form isian -->
+        <div id="lead-form-wrap">
+          <div class="lead-form-header">
+            <div class="lead-icon-wrap">
+              <svg width="28" height="28" fill="none" stroke="var(--mint)" stroke-width="1.8" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.07 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+            </div>
+            <div>
+              <h3 class="calc-panel-title" style="margin-bottom:4px;">Hampir selesai!</h3>
+              <p class="calc-panel-sub" style="margin-bottom:0;">Tinggalkan nama dan nomor WA kamu — tim kami akan menghubungi dalam 1×24 jam dengan penawaran terbaik.</p>
+            </div>
+          </div>
+
+          <!-- Premi summary mini -->
+          <div class="lead-premi-mini">
+            <span id="lead-summary-text"></span>
+            <span class="lead-premi-badge" id="lead-premi-badge"></span>
+          </div>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="input-nama">Nama Lengkap</label>
+            <input class="calc-input" id="input-nama" type="text" placeholder="cth: Budi Santoso" autocomplete="name">
+          </div>
+
+          <div class="calc-form-group">
+            <label class="calc-label" for="input-wa">Nomor WhatsApp</label>
+            <div class="calc-input-prefix-wrap">
+              <span class="calc-input-prefix" style="font-size:13px;">+62</span>
+              <input class="calc-input" id="input-wa" type="tel" placeholder="812 3456 7890" inputmode="numeric" autocomplete="tel">
+            </div>
+            <div class="calc-hint">Nomor aktif WhatsApp. Kami tidak akan spam.</div>
+          </div>
+
+          <div class="calc-error" id="lead-error">⚠ Mohon isi nama dan nomor WhatsApp yang valid.</div>
+
+          <!-- Privacy note -->
+          <div class="lead-privacy">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Data kamu aman dan hanya digunakan untuk keperluan penawaran asuransi.
+          </div>
+
+          <div class="calc-nav">
+            <button class="calc-btn-back" onclick="goStep(3)">← Kembali</button>
+            <button class="calc-btn-wa" onclick="submitLead()" style="flex:1;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Kirim & Buka WhatsApp
+            </button>
+          </div>
+        </div>
+
+        <!-- State B: Sukses -->
+        <div id="lead-success-wrap" style="display:none; text-align:center; padding: 20px 0 10px;">
+          <div class="lead-success-icon">✓</div>
+          <h3 class="calc-panel-title" style="margin-bottom:8px;">WhatsApp Terbuka!</h3>
+          <p class="calc-panel-sub" style="margin: 0 auto 24px; max-width: 340px;">
+            Pesan sudah siap dikirim ke tim NeoCover. Klik <strong style="color:white;">Send</strong> di WhatsApp untuk konfirmasi, dan kami akan merespons segera.
+          </p>
+          <div style="background: rgba(0,245,212,0.06); border: 1px solid rgba(0,245,212,0.2); border-radius: 14px; padding: 18px; margin-bottom: 24px;">
+            <div style="font-size:13px; color: rgba(255,255,255,0.4); margin-bottom:6px;">Estimasi premi kamu</div>
+            <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; font-weight: 800; color: var(--mint);" id="success-premi"></div>
+            <div style="font-size:12px; color: rgba(255,255,255,0.3); margin-top:4px;">per bulan</div>
+          </div>
+          <div class="calc-nav" style="justify-content:center; gap:10px;">
+            <button class="calc-btn-back" onclick="resetCalc()">Hitung Kendaraan Lain</button>
+            <button class="calc-btn-next" style="flex:0; padding: 13px 24px;" onclick="closeCalc()">Selesai ✓</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── SCROLL REVEAL ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ── CALCULATOR STATE ── */
+const state = { jenis: null, tipe: null, step: 1, result: null };
+
+const STEPS = [
+  { label: 'Kendaraan' },
+  { label: 'Detail' },
+  { label: 'Estimasi' },
+  { label: 'Kontak' }
+];
+
+
+/* ── POPULATE YEAR DROPDOWN ── */
+(function populateYears() {
+  const sel = document.getElementById('input-tahun');
+  const now = new Date().getFullYear();
+  for (let y = now; y >= 2000; y--) {
+    const opt = document.createElement('option');
+    opt.value = y; opt.textContent = y;
+    sel.appendChild(opt);
+  }
+})();
+
+/* ── CURRENCY FORMAT ── */
+function formatRp(n) {
+  return 'Rp ' + Math.round(n).toLocaleString('id-ID');
+}
+
+function parseHarga(str) {
+  return parseInt(str.replace(/\D/g, ''), 10) || 0;
+}
+
+/* ── MODAL OPEN / CLOSE ── */
+function openCalc(jenisPreset) {
+  document.body.style.overflow = 'hidden';
+  document.getElementById('calc-overlay').classList.add('open');
+  if (jenisPreset) {
+    selectVehicle(jenisPreset);
+  }
+  goStep(1);
+}
+
+function closeCalc() {
+  document.getElementById('calc-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('calc-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeCalc();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeCalc();
+});
+
+/* ── STEP NAVIGATION ── */
+function goStep(n) {
+  state.step = n;
+  document.querySelectorAll('.calc-panel').forEach((p, i) => {
+    p.classList.toggle('active', i === n - 1);
+  });
+  renderStepIndicator();
+  document.getElementById('calc-modal').scrollTop = 0;
+
+  if (n === 3) runCalculation();
+  if (n === 4) renderLeadStep();
+}
+
+function renderStepIndicator() {
+  const wrap = document.getElementById('calc-steps-indicator');
+  const hint = document.getElementById('calc-step-hint');
+  wrap.innerHTML = '';
+  STEPS.forEach((s, i) => {
+    const num = i + 1;
+    const isDone = num < state.step;
+    const isActive = num === state.step;
+
+    const item = document.createElement('div');
+    item.className = 'calc-step-item' + (isActive ? ' active' : '') + (isDone ? ' done' : '');
+
+    const dot = document.createElement('div');
+    dot.className = 'calc-step-dot' + (isActive ? ' active' : '') + (isDone ? ' done' : '');
+    dot.textContent = isDone ? '✓' : num;
+
+    const label = document.createElement('span');
+    label.className = 'calc-step-label';
+    label.textContent = s.label;
+
+    item.appendChild(dot);
+    item.appendChild(label);
+    wrap.appendChild(item);
+
+    if (i < STEPS.length - 1) {
+      const line = document.createElement('div');
+      line.className = 'calc-step-line' + (isDone ? ' done' : '');
+      wrap.appendChild(line);
+    }
+  });
+  hint.textContent = `Langkah ${state.step} dari ${STEPS.length}`;
+}
+
+/* ── VEHICLE SELECTION ── */
+function selectVehicle(jenis) {
+  state.jenis = jenis;
+  document.getElementById('vc-mobil').classList.toggle('selected', jenis === 'mobil');
+  document.getElementById('vc-motor').classList.toggle('selected', jenis === 'motor');
+  checkStep1Ready();
+}
+
+function selectCoverage(tipe) {
+  state.tipe = tipe;
+  document.getElementById('cp-comprehensive').classList.toggle('selected', tipe === 'comprehensive');
+  document.getElementById('cp-tlo').classList.toggle('selected', tipe === 'tlo');
+  checkStep1Ready();
+}
+
+function checkStep1Ready() {
+  document.getElementById('btn-step1-next').disabled = !(state.jenis && state.tipe);
+}
+
+/* ── CURRENCY INPUT MASKING ── */
+document.getElementById('input-harga').addEventListener('input', function() {
+  const raw = this.value.replace(/\D/g, '');
+  if (raw) this.value = parseInt(raw, 10).toLocaleString('id-ID');
+  else this.value = '';
+});
+
+/* Format nomor WA: angka only */
+document.getElementById('input-wa').addEventListener('input', function() {
+  this.value = this.value.replace(/\D/g, '');
+});
+
+/* ── FORM VALIDATION ── */
+function validateStep2() {
+  const merk  = document.getElementById('input-merk').value.trim();
+  const tahun = document.getElementById('input-tahun').value;
+  const harga = parseHarga(document.getElementById('input-harga').value);
+  const errEl = document.getElementById('form-error');
+
+  if (!merk || !tahun || harga < 1000000) {
+    errEl.style.display = 'block';
+    errEl.textContent = harga > 0 && harga < 1000000
+      ? '⚠ Harga terlalu kecil. Masukkan harga dalam Rupiah penuh (cth: 80.000.000).'
+      : '⚠ Mohon lengkapi semua data di atas.';
+    return false;
+  }
+  errEl.style.display = 'none';
+  return true;
+}
+
+function validateLeadForm() {
+  const nama  = document.getElementById('input-nama').value.trim();
+  const wa    = document.getElementById('input-wa').value.trim();
+  const errEl = document.getElementById('lead-error');
+
+  if (!nama || wa.length < 9) {
+    errEl.style.display = 'block';
+    errEl.textContent = !nama
+      ? '⚠ Masukkan nama lengkap kamu.'
+      : '⚠ Nomor WhatsApp minimal 9 digit.';
+    return false;
+  }
+  errEl.style.display = 'none';
+  return true;
+}
+
+/* ── CALCULATION ── */
+async function hitungPremi() {
+  if (!validateStep2()) return;
+  goStep(3);
+}
+
+async function runCalculation() {
+  const loading = document.getElementById('calc-loading');
+  const content = document.getElementById('calc-result-content');
+  loading.style.display = 'block';
+  content.style.display = 'none';
+
+  const merk  = document.getElementById('input-merk').value.trim();
+  const tahun = parseInt(document.getElementById('input-tahun').value, 10);
+  const harga = parseHarga(document.getElementById('input-harga').value);
+
+  let result = null;
+
+  /* Try backend API first */
+  try {
+    const res = await fetch('/api/premi/hitung', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jenis: state.jenis, tipe: state.tipe, harga_kendaraan: harga, tahun })
+    });
+    if (res.ok) result = await res.json();
+  } catch (_) { /* backend not running — use client fallback */ }
+
+  /* Client-side fallback */
+  if (!result) {
+    const umur       = new Date().getFullYear() - tahun;
+    const depresiasi = Math.min(umur * 0.05, 0.30);
+    const nilaiAktual = harga * (1 - depresiasi);
+    const rate        = RATE[state.jenis][state.tipe];
+    result = {
+      nilai_aktual: Math.round(nilaiAktual),
+      premi_per_bulan: {
+        min: Math.round(nilaiAktual * rate.min / 12),
+        max: Math.round(nilaiAktual * rate.max / 12)
+      },
+      premi_per_tahun: {
+        min: Math.round(nilaiAktual * rate.min),
+        max: Math.round(nilaiAktual * rate.max)
+      }
+    };
+  }
+
+  /* Store result in state for lead step */
+  state.result = result;
+
+  await new Promise(r => setTimeout(r, 900));
+
+  const label = { comprehensive: 'Komprehensif (All Risk)', tlo: 'TLO (Total Loss Only)' };
+  document.getElementById('result-subtitle').textContent =
+    `${merk} · ${tahun} · ${label[state.tipe]}`;
+  document.getElementById('result-monthly').textContent =
+    `${formatRp(result.premi_per_bulan.min)} – ${formatRp(result.premi_per_bulan.max)}`;
+  document.getElementById('result-kendaraan').textContent = `${merk} (${tahun})`;
+  document.getElementById('result-tipe').textContent = label[state.tipe];
+  document.getElementById('result-nilai').textContent = formatRp(result.nilai_aktual);
+  document.getElementById('result-yearly').textContent =
+    `${formatRp(result.premi_per_tahun.min)} – ${formatRp(result.premi_per_tahun.max)}`;
+
+  loading.style.display = 'none';
+  content.style.display = 'block';
+}
+
+/* ── LEAD STEP RENDER ── */
+function renderLeadStep() {
+  /* Reset ke form state */
+  document.getElementById('lead-form-wrap').style.display = 'block';
+  document.getElementById('lead-success-wrap').style.display = 'none';
+  document.getElementById('lead-error').style.display = 'none';
+
+  if (!state.result) return;
+
+  const merk  = document.getElementById('input-merk').value.trim();
+  const tahun = document.getElementById('input-tahun').value;
+  const tipeLabel = state.tipe === 'comprehensive' ? 'All Risk' : 'TLO';
+  const jenisLabel = state.jenis === 'mobil' ? '🚗' : '🏍️';
+
+  document.getElementById('lead-summary-text').textContent =
+    `${jenisLabel} ${merk} (${tahun}) · ${tipeLabel}`;
+  document.getElementById('lead-premi-badge').textContent =
+    `${formatRp(state.result.premi_per_bulan.min)}/bln`;
+}
+
+/* ── SUBMIT LEAD → OPEN WHATSAPP ── */
+function submitLead() {
+  if (!validateLeadForm()) return;
+
+  const nama   = document.getElementById('input-nama').value.trim();
+  const waNum  = document.getElementById('input-wa').value.trim();
+  const merk   = document.getElementById('input-merk').value.trim();
+  const tahun  = document.getElementById('input-tahun').value;
+  const tipe   = state.tipe === 'comprehensive' ? 'Komprehensif (All Risk)' : 'TLO';
+  const jenis  = state.jenis === 'mobil' ? 'Mobil' : 'Motor';
+  const bulanan = `${formatRp(state.result.premi_per_bulan.min)} – ${formatRp(state.result.premi_per_bulan.max)}`;
+  const tahunan = `${formatRp(state.result.premi_per_tahun.min)} – ${formatRp(state.result.premi_per_tahun.max)}`;
+
+  /* Format pesan WA yang informatif untuk agen */
+  const pesan = `Halo NeoCover! 👋
+
+Saya ingin mendapatkan penawaran asuransi kendaraan.
+
+*DATA SAYA:*
+• Nama: ${nama}
+• WhatsApp: +62${waNum}
+
+*KENDARAAN:*
+• Jenis: ${jenis}
+• Merk/Model: ${merk} (${tahun})
+• Tipe Asuransi: ${tipe}
+
+*ESTIMASI PREMI:*
+• Per bulan: ${bulanan}
+• Per tahun: ${tahunan}
+
+Mohon informasi lebih lanjut dan penawaran terbaik. Terima kasih! 🙏`;
+
+  /* Ganti dengan nomor WA agen kamu */
+  const AGEN_WA = '6281234567890';
+  window.open(`https://wa.me/${AGEN_WA}?text=${encodeURIComponent(pesan)}`, '_blank');
+
+  /* Tampilkan success state */
+  document.getElementById('lead-form-wrap').style.display = 'none';
+  document.getElementById('lead-success-wrap').style.display = 'block';
+  document.getElementById('success-premi').textContent =
+    `${formatRp(state.result.premi_per_bulan.min)} – ${formatRp(state.result.premi_per_bulan.max)}`;
+}
+
+/* ── RESET CALCULATOR ── */
+function resetCalc() {
+  state.jenis = null; state.tipe = null; state.result = null;
+  document.getElementById('vc-mobil').classList.remove('selected');
+  document.getElementById('vc-motor').classList.remove('selected');
+  document.getElementById('cp-comprehensive').classList.remove('selected');
+  document.getElementById('cp-tlo').classList.remove('selected');
+  document.getElementById('input-merk').value = '';
+  document.getElementById('input-tahun').value = '';
+  document.getElementById('input-harga').value = '';
+  document.getElementById('input-nama').value = '';
+  document.getElementById('input-wa').value = '';
+  goStep(1);
+}
+
+/* ── INIT ── */
+renderStepIndicator();
+
+/* ── RATE TABLE (OJK Reference) ── */
+const RATE = {
+  mobil: { comprehensive: { min: 0.0178, max: 0.0280 }, tlo: { min: 0.0050, max: 0.0080 } },
+  motor: { comprehensive: { min: 0.0189, max: 0.0250 }, tlo: { min: 0.0040, max: 0.0060 } }
+};
+
+/* ── POPULATE YEAR DROPDOWN ── */
+(function populateYears() {
+  const sel = document.getElementById('input-tahun');
+  const now = new Date().getFullYear();
+  for (let y = now; y >= 2000; y--) {
+    const opt = document.createElement('option');
+    opt.value = y; opt.textContent = y;
+    sel.appendChild(opt);
+  }
+})();
+
+/* ── CURRENCY FORMAT ── */
+function formatRp(n) {
+  return 'Rp ' + Math.round(n).toLocaleString('id-ID');
+}
+
+function parseHarga(str) {
+  return parseInt(str.replace(/\D/g, ''), 10) || 0;
+}
+
+/* ── MODAL OPEN / CLOSE ── */
+function openCalc(jenisPreset) {
+  document.body.style.overflow = 'hidden';
+  document.getElementById('calc-overlay').classList.add('open');
+  if (jenisPreset) {
+    selectVehicle(jenisPreset);
+    renderStepIndicator();
+  } else {
+    goStep(1);
+  }
+}
+
+function closeCalc() {
+  document.getElementById('calc-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('calc-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeCalc();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeCalc();
+});
+
+/* ── STEP NAVIGATION ── */
+function goStep(n) {
+  state.step = n;
+  document.querySelectorAll('.calc-panel').forEach((p, i) => {
+    p.classList.toggle('active', i === n - 1);
+  });
+  renderStepIndicator();
+  document.getElementById('calc-modal').scrollTop = 0;
+
+  if (n === 3) runCalculation();
+}
+
+function renderStepIndicator() {
+  const wrap = document.getElementById('calc-steps-indicator');
+  const hint = document.getElementById('calc-step-hint');
+  wrap.innerHTML = '';
+  STEPS.forEach((s, i) => {
+    const num = i + 1;
+    const isDone = num < state.step;
+    const isActive = num === state.step;
+
+    const item = document.createElement('div');
+    item.className = 'calc-step-item' + (isActive ? ' active' : '') + (isDone ? ' done' : '');
+
+    const dot = document.createElement('div');
+    dot.className = 'calc-step-dot' + (isActive ? ' active' : '') + (isDone ? ' done' : '');
+    dot.textContent = isDone ? '✓' : num;
+
+    const label = document.createElement('span');
+    label.className = 'calc-step-label';
+    label.textContent = s.label;
+
+    item.appendChild(dot);
+    item.appendChild(label);
+    wrap.appendChild(item);
+
+    if (i < STEPS.length - 1) {
+      const line = document.createElement('div');
+      line.className = 'calc-step-line' + (isDone ? ' done' : '');
+      wrap.appendChild(line);
+    }
+  });
+  hint.textContent = `Langkah ${state.step} dari ${STEPS.length}`;
+}
+
+/* ── VEHICLE SELECTION ── */
+function selectVehicle(jenis) {
+  state.jenis = jenis;
+  document.getElementById('vc-mobil').classList.toggle('selected', jenis === 'mobil');
+  document.getElementById('vc-motor').classList.toggle('selected', jenis === 'motor');
+  checkStep1Ready();
+}
+
+function selectCoverage(tipe) {
+  state.tipe = tipe;
+  document.getElementById('cp-comprehensive').classList.toggle('selected', tipe === 'comprehensive');
+  document.getElementById('cp-tlo').classList.toggle('selected', tipe === 'tlo');
+  checkStep1Ready();
+}
+
+function checkStep1Ready() {
+  document.getElementById('btn-step1-next').disabled = !(state.jenis && state.tipe);
+}
+
+/* ── CURRENCY INPUT MASKING ── */
+document.getElementById('input-harga').addEventListener('input', function() {
+  const raw = this.value.replace(/\D/g, '');
+  if (raw) this.value = parseInt(raw, 10).toLocaleString('id-ID');
+  else this.value = '';
+});
+
+/* ── FORM VALIDATION ── */
+function validateStep2() {
+  const merk  = document.getElementById('input-merk').value.trim();
+  const tahun = document.getElementById('input-tahun').value;
+  const harga = parseHarga(document.getElementById('input-harga').value);
+  const errEl = document.getElementById('form-error');
+
+  if (!merk || !tahun || harga < 1000000) {
+    errEl.style.display = 'block';
+    errEl.textContent = harga > 0 && harga < 1000000
+      ? '⚠ Harga terlalu kecil. Masukkan harga dalam Rupiah penuh (cth: 80.000.000).'
+      : '⚠ Mohon lengkapi semua data di atas.';
+    return false;
+  }
+  errEl.style.display = 'none';
+  return true;
+}
+
+/* ── CALCULATION (API + Fallback) ── */
+async function hitungPremi() {
+  if (!validateStep2()) return;
+  goStep(3);
+}
+
+async function runCalculation() {
+  const loading = document.getElementById('calc-loading');
+  const content = document.getElementById('calc-result-content');
+  loading.style.display = 'block';
+  content.style.display = 'none';
+
+  const merk  = document.getElementById('input-merk').value.trim();
+  const tahun = parseInt(document.getElementById('input-tahun').value, 10);
+  const harga = parseHarga(document.getElementById('input-harga').value);
+
+  let result = null;
+
+  /* Try backend API first */
+  try {
+    const res = await fetch('/api/premi/hitung', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ jenis: state.jenis, tipe: state.tipe, harga_kendaraan: harga, tahun })
+    });
+    if (res.ok) result = await res.json();
+  } catch (_) { /* backend not running — use client fallback */ }
+
+  /* Client-side fallback */
+  if (!result) {
+    const umur       = new Date().getFullYear() - tahun;
+    const depresiasi = Math.min(umur * 0.05, 0.30);
+    const nilaiAktual = harga * (1 - depresiasi);
+    const rate        = RATE[state.jenis][state.tipe];
+    result = {
+      nilai_aktual: Math.round(nilaiAktual),
+      premi_per_bulan: {
+        min: Math.round(nilaiAktual * rate.min / 12),
+        max: Math.round(nilaiAktual * rate.max / 12)
+      },
+      premi_per_tahun: {
+        min: Math.round(nilaiAktual * rate.min),
+        max: Math.round(nilaiAktual * rate.max)
+      }
+    };
+  }
+
+  /* Simulate a brief loading feel */
+  await new Promise(r => setTimeout(r, 900));
+
+  /* Render results */
+  const label = { comprehensive: 'Komprehensif (All Risk)', tlo: 'TLO (Total Loss Only)' };
+  document.getElementById('result-subtitle').textContent =
+    `${merk} · ${tahun} · ${label[state.tipe]}`;
+  document.getElementById('result-monthly').textContent =
+    `${formatRp(result.premi_per_bulan.min)} – ${formatRp(result.premi_per_bulan.max)}`;
+  document.getElementById('result-kendaraan').textContent = `${merk} (${tahun})`;
+  document.getElementById('result-tipe').textContent = label[state.tipe];
+  document.getElementById('result-nilai').textContent = formatRp(result.nilai_aktual);
+  document.getElementById('result-yearly').textContent =
+    `${formatRp(result.premi_per_tahun.min)} – ${formatRp(result.premi_per_tahun.max)}`;
+
+  loading.style.display = 'none';
+  content.style.display = 'block';
+}
+
+/* ── WHATSAPP CTA ── */
+function contactWA() {
+  const merk   = document.getElementById('input-merk').value.trim();
+  const tahun  = document.getElementById('input-tahun').value;
+  const tipe   = state.tipe === 'comprehensive' ? 'Komprehensif' : 'TLO';
+  const jenis  = state.jenis === 'mobil' ? 'Mobil' : 'Motor';
+  const bulanan = document.getElementById('result-monthly').textContent;
+  const msg = encodeURIComponent(
+    `Halo NeoCover! 👋\n\nSaya tertarik dengan asuransi *${jenis} ${tipe}* untuk:\n• Kendaraan: ${merk} (${tahun})\n• Estimasi premi: ${bulanan}/bln\n\nBoleh info lebih lanjut? 🙏`
+  );
+  window.open(`https://wa.me/6281234567890?text=${msg}`, '_blank');
+}
+
+/* ── INIT ── */
+renderStepIndicator();
+</script>
+</body>
+</html>
